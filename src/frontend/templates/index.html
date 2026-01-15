@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sentiment Analysis</title>
+
+    <link rel="stylesheet" href="/static/style.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
+</head>
+<body>
+
+<!-- HOME -->
+<div class="container" id="home">
+    <div class="logo">😊😐😠</div>
+    <h1 class="title">Sentiment Analysis</h1>
+    <p class="subtitle">Choose how you want to analyze</p>
+
+    <div class="cards">
+        <div class="card" onclick="openText()">
+            <span class="card-icon">✍️</span>
+            <h2>Analyze Text</h2>
+            <p>Analyze a single sentence or paragraph</p>
+        </div>
+
+        <div class="card" onclick="openFile()">
+            <span class="card-icon">📂</span>
+            <h2>Analyze File</h2>
+            <p>Upload CSV or Excel file</p>
+        </div>
+    </div>
+</div>
+
+<!-- TEXT -->
+<div class="container hidden" id="textSection">
+    <h2>✍️ Text Analysis</h2>
+
+    <textarea
+        id="textInput"
+        rows="8"
+        placeholder="Write your text here...">
+    </textarea>
+
+    <br><br>
+
+    <button id="analyzeTextBtn" onclick="analyzeText()">
+        Analyze Text
+    </button>
+    <div id="textLoader" class="loader hidden"></div>
+
+<div id="textResults" class="hidden">
+    <div class="text-percentages">
+        <p id="posPerc"></p>
+        <p id="negPerc"></p>
+        <p id="neuPerc"></p>
+    </div>
+
+    
+    <div class="final-decision">
+    <div class="final-title">Final Decision</div>
+    <div id="finalDecision"></div>
+</div>
+
+</div>
+
+
+    <br><br>
+
+    <button onclick="goBack()">⬅ Back</button>
+</div>
+
+<!-- FILE -->
+<div class="container hidden" id="fileSection">
+    <h2>📂 File Analysis</h2>
+
+    <input type="file" id="fileInput" accept=".csv,.xlsx">
+    <br><br>
+
+    <button id="analyzeBtn" onclick="uploadFile()">Analyze</button>
+
+    <div id="status" class="status"></div>
+    <div id="loader" class="loader hidden"></div>
+
+    <!-- SUMMARY -->
+<div class="cards">
+
+    <!-- Total Reviews -->
+    <div class="summary-card total">
+        <h3>Total Reviews</h3>
+        <p id="totalReviews">0</p>
+    </div>
+
+</div>
+
+<div id="summary" class="cards"></div>
+
+
+    <div class="pie-wrapper">
+        <canvas id="pieChart"></canvas>
+    </div>
+
+    <h3 class="section-title">
+    Most Frequent Words in Each Sentiment</h3>
+    
+
+    <div class="wordclouds">
+        <div class="wc-card">
+            <h4>Positive</h4>
+            <img id="wc-positive">
+        </div>
+        <div class="wc-card">
+            <h4>Negative</h4>
+            <img id="wc-negative">
+        </div>
+        <div class="wc-card">
+            <h4>Neutral</h4>
+            <img id="wc-neutral">
+        </div>
+        
+    </div>
+
+    <div class="filter-bar">
+        <select id="langFilter" onchange="applyFilters()">
+            <option value="all">All Languages</option>
+            <option value="ar">Arabic</option>
+            <option value="en">English</option>
+        </select>
+
+        <select id="labelFilter" onchange="applyFilters()">
+            <option value="all">All Labels</option>
+            <option value="positive">Positive</option>
+            <option value="negative">Negative</option>
+            <option value="neutral">Neutral</option>
+        </select>
+
+        <button onclick="downloadTable()">⬇ Download Table</button>
+    </div>
+
+    <table id="resultsTable">
+        <thead>
+            <tr>
+                <th>Text</th>
+                <th>Sentiment</th>
+                <th>Score</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <br>
+    <button onclick="goBack()">⬅ Back</button>
+</div>
+
+<script src="/static/script.js"></script>
+</body>
+</html>

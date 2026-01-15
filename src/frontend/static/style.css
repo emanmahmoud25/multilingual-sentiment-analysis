@@ -1,0 +1,241 @@
+body {
+    margin: 0;
+    font-family: "Segoe UI", Arial;
+    background: linear-gradient(135deg, #12052b, #1c083f);
+    color: #eee;
+}
+
+.container {
+    text-align: center;
+    padding: 80px;
+}
+
+.hidden { display: none; }
+
+.logo {
+    font-size: 72px;
+    margin-bottom: 10px;
+}
+
+.cards {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin: 40px 0;
+}
+
+.card {
+    background: #1a1033;
+    padding: 30px;
+    border-radius: 18px;
+    width: 260px;
+    box-shadow: 0 12px 35px rgba(0,0,0,0.6);
+    cursor: pointer;
+}
+
+.card-icon { font-size: 42px; }
+
+.pie-wrapper {
+    width: 320px;
+    margin: 30px auto;
+}
+
+#pieChart {
+    width: 320px !important;
+    height: 320px !important;
+}
+
+.wordclouds {
+    display: flex;
+    gap: 25px;
+    justify-content: center;
+    margin: 25px 0;
+}
+
+.wc-card {
+    background: #1a1033;
+    padding: 20px;
+    border-radius: 18px;
+    width: 320px;   
+}
+
+.wc-card img {
+    width: 100%;
+    height: 260px;      
+    object-fit: contain;
+    background: white;
+    border-radius: 12px;
+    padding: 8px;
+}
+
+
+button {
+    padding: 10px 22px;
+    border-radius: 10px;
+    border: none;
+    background: #6c4cff;
+    color: white;
+    cursor: pointer;
+}
+
+.loader {
+    margin: 15px auto;
+    width: 40px;
+    height: 40px;
+    border: 4px solid #444;
+    border-top: 4px solid #6c4cff;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.filter-bar {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    border: 1px solid #444;
+    padding: 10px;
+}
+.section-title {
+    margin-top: 50px;
+    margin-bottom: 25px;
+    font-size: 26px;
+    font-weight: 600;
+    color: #d8cfff;
+    letter-spacing: 0.8px;
+    text-align: center;
+    text-shadow: 0 0 12px rgba(216, 207, 255, 0.35);
+}
+.logo {
+    font-size: 48px;     
+    margin-bottom: 12px;
+}
+/* TEXT ANALYZE */
+.text-percentages p {
+    font-size: 22px;     
+    margin: 14px 0;
+    color: #e6ddff;
+    font-weight: 600;
+}
+.text-percentages {
+    margin-top: 25px;
+}
+
+
+
+.final-decision {
+    margin-top: 25px;
+    padding: 20px;
+    background: #1a1033;
+    border-radius: 16px;
+    box-shadow: 0 0 20px rgba(216, 207, 255, 0.25);
+}
+
+#finalDecision {
+    font-size: 26px;
+    font-weight: bold;
+    color: #6c4cff;
+}
+.analyze-btn {
+    margin-top: 20px;
+    padding: 12px 30px;
+    font-size: 18px;
+    background: #7c4dff;   /* موف */
+    color: white;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+}
+
+.analyze-btn:hover {
+    background: #6a3be8;
+}
+#textSection {
+    text-align: center;
+}
+
+#textInput {
+    width: 50%;
+    height: 150px;
+    padding: 10px;
+
+    font-size: 26px;        
+    font-weight: 600;
+    line-height: 1.8;
+
+    text-align: center;     
+    direction: rtl;
+    unicode-bidi: plaintext;
+
+    border-radius: 22px;
+
+    margin-top: 40px;  
+    padding: 70px 15px;
+ 
+
+    box-shadow: 0 0 35px rgba(124, 77, 255, 0.25);
+}
+/* .summary-card.total {
+    background: linear-gradient(135deg, #7c4dff, #5e35b1);
+    color: #fff;
+    text-align: center;
+} */
+
+
+
+
+
+#analyzeTextBtn {
+    padding: 12px 28px;
+    font-size: 18px;
+    background: #7c4dff;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+}
+
+#analyzeTextBtn:hover {
+    background: #6a3be8;
+}
+
+.final-decision {
+    margin: 40px auto 0;
+    padding: 30px;
+    width: 60%;
+
+    background: linear-gradient(135deg, #1a1033, #2a1660);
+    border-radius: 22px;
+
+    box-shadow: 0 0 40px rgba(124, 77, 255, 0.35);
+    text-align: center;
+}
+#finalDecision {
+    font-size: 30px;
+    font-weight: bold;
+    color: #7c4dff;
+    margin-top: 10px;
+}
+#finalDecision {
+    direction: ltr;
+    text-align: center;
+}
+
+
+.final-title {
+    font-size: 22px;
+    margin-bottom: 12px;
+    color: #cbbcff;
+}

@@ -1,0 +1,22 @@
+text,sentiment,score
+المنتج ممتاز جدًا وجودته عالية,Positive,95.18
+التوصيل كان سريع والتعامل محترم,Positive,91.31
+السعر مرتفع مقارنة بالجودة,Neutral,59.32
+أنا سعيد جدًا بالشراء من هذا المكان,Positive,95.55
+لم يعجبني المنتج إطلاقًا,Negative,99.55
+The product quality is amazing and I really loved it.,Positive,98.44
+الخدمة بطيئة نوعًا ما,Neutral,66.4
+التجربة بشكل عام جيدة,Neutral,68.62
+الموظفون متعاونون جدًا,Positive,91.97
+التغليف كان رائعًا ومنظمًا,Positive,78.79
+"The app works, but it still needs many improvements",Neutral,92.52
+الخدمة تستحق التجربة,Positive,91.87
+المنتج مقبول لكنه ليس الأفضل,Neutral,74.0
+This service is very bad and I will not use it again.,Negative,99.66
+I am extremely happy with the fast delivery and support.,Positive,99.59
+تجربة سيئة جدًا ومحبطة,Negative,97.54
+المنتج لم يعمل كما توقعت,Negative,94.25
+لا أنصح بالتعامل مع هذا المتجر,Negative,99.58
+كل شيء كان على ما يرام,Positive,88.07
+التطبيق سهل الاستخدام,Positive,53.87
+واجهت مشاكل كثيرة أثناء الطلب,Negative,68.63
