@@ -53,8 +53,6 @@ The Neutral class shows slightly lower performance, which is expected in sentime
 
 ## Back Translation (Data Augmentation)
 
-To improve robustness and increase Arabic data diversity, **Back Translation** was applied.
-
 ### What is Back Translation?
 
 A sentence is:
@@ -171,152 +169,208 @@ tokenizer = AutoTokenizer.from_pretrained("MODEL_NAME")
 
 ## Project Structure
 
-## Project Structure
-
 ```
 SENTIMENT_ANALYSIS/
 │
-├── .conda/                     # Virtual environment
-├── Data/                       # Raw datasets (Arabic & English)
-├── Data_Predictions/           # Saved prediction outputs
+├── .conda/
+├── Data/
+├── Data_Predictions/
 │
-├── Docker/                     # Docker configuration
+├── Docker/
 │   ├── Dockerfile
-│   └── .dockerignore
+│   ├── docker-compose.yml
+│   ├── .dockerignore
+│   ├── .env
+│   └── .env.example
 │
-├── src/                        # Main source code
+├── src/
+│   ├── app/
+│   │   ├── inference.py
+│   │   ├── model_loader.py
+│   │   └── schemas.py
 │   │
-│   ├── app/                    # Core application logic
-│   │   ├── inference.py        # Model inference logic
-│   │   ├── model_loader.py     # Load XLM-RoBERTa model
-│   │   └── schemas.py          # Request & response schemas
+│   ├── frontend/
+│   │   ├── templates/
+│   │   ├── static/
+│   │   └── summary.py
 │   │
-│   ├── frontend/               # Frontend interface
-│   │   ├── templates/          # HTML pages
-│   │   ├── static/             # CSS & JavaScript
-│   │   └── summary.py          # Frontend summary logic
+│   ├── helper/
+│   │   └── config.py
 │   │
-│   ├── helper/                 # Helper functions
-│   │   └── config.py           # Configuration & label mapping
-│   │
-│   ├── model/                  # Trained models
+│   ├── model/
 │   │   ├── xlm_sentiment_model
 │   │   └── arabic-english-sentiment-model
 │   │
-│   ├── notebook_files/         # Jupyter notebooks
+│   ├── notebook_files/
 │   │   ├── Cleaning & Augmentation
 │   │   ├── EDA
 │   │   └── Training
 │   │
-│   ├── routes/                 # API endpoints
-│   │   ├── analyze_text.py     # Text sentiment analysis
-│   │   ├── analyze_file.py     # File sentiment analysis
-│   │   ├── predict.py          # Prediction endpoint
-│   │   ├── download.py         # Download results
-│   │   └── task_result.py      # Async task results
+│   ├── routes/
+│   │   ├── analyze_text.py
+│   │   ├── analyze_file.py
+│   │   ├── predict.py
+│   │   ├── download.py
+│   │   └── task_result.py
 │   │
-│   ├── tasks/                  # Background processing
-│   │   └── tasks.py            # Celery tasks
+│   ├── tasks/
+│   │   └── tasks.py
 │   │
-│   ├── utils/                  # Utility functions
-│   │   ├── pie_chart.py        # Visualization utilities
-│   │   └── wordcloud_utils.py  # Word cloud generation
+│   ├── utils/
+│   │   ├── pie_chart.py
+│   │   └── wordcloud_utils.py
 │   │
-│   ├── celery_app.py           # Celery configuration
-│   └── main.py                 # FastAPI entry point
+│   ├── celery_app.py
+│   └── main.py
 │
-├── .env                        # Environment variables
-├── .env.example                # Example environment file
-├── .gitignore                  # Ignored files
-├── README.md                   # Project documentation
-└── requirements.txt            # Python dependencies
+├── .env
+├── .env.example
+├── .gitignore
+├── README.md
+└── requirements.txt
+```
 
 ---
 
 ## How to Run the Project
 
-### Run Without Docker
+### Prerequisites
+
+Make sure you have the following installed:
+
+* Docker
+* Docker Compose
+
+> No need to install Python, Redis, or Celery locally.
+
+---
+
+## Download the Model (Required)
+
+This project does **not** include the trained model files in the repository due to size limitations.
+
+### Steps
+
+1. Download the model from Google Drive:
+
+```
+https://drive.google.com/drive/folders/1flxWB2PE9O3YYMvHFnDZQpaJ2ljnyP2E
+```
+
+2. Extract the downloaded folder.
+
+3. Place it at:
+
+```
+src/model/xlm_sentiment_model
+```
+
+4. Update `.env`:
+
+```env
+MODEL_PATH=src/model/xlm_sentiment_model
+```
+
+### Important Notes
+
+* The application **will not start** without the model files.
+* Do not rename the folder unless you update `MODEL_PATH`.
+* The same model path is used by **FastAPI and Celery**.
+
+---
+
+## Run With Docker (Recommended)
+
+### Step 1: Clone the repository
+
+```bash
+git clone https://github.com/emanmahmoud25/multilingual-sentiment-analysis.git
+cd multilingual-sentiment-analysis/Docker
+```
+
+---
+
+### Step 2: Build and run
+
+```bash
+docker-compose up --build
+```
+
+---
+
+### Step 3: Open the application
+
+```
+http://localhost:8000
+```
+
+Swagger docs:
+
+```
+http://localhost:8000/docs
+```
+
+---
+
+### Step 4: Stop services
+
+```bash
+docker-compose down
+```
+
+---
+
+## Run Without Docker (Optional)
 
 ```bash
 pip install -r requirements.txt
 uvicorn src.main:app --reload
 ```
 
-Open:
+Requirements:
 
-```
-http://127.0.0.1:8000
-```
-
----
-
-### Run With Docker (Recommended)
-
-```bash
-docker build -t sentiment-api -f Docker/Dockerfile .
-docker run -p 8000:8000 sentiment-api
-```
-
-#### Run Redis
-
-```bash
-docker run -d -p 6381:6379 --name redis-sentiment redis
-```
-
-#### Start Celery Worker
-
-```bash
-celery -A src.celery_app.celery_app worker --pool=solo --loglevel=info
-```
-
-Open:
-
-```
-http://localhost:8000
-```
-
-The project is **Ready to Run using Docker with no setup complexity**.
+* Python 3.10
+* Redis running
+* Celery worker running
 
 ---
 
-## API Usage
+## API Endpoints Overview
 
-**Endpoint**
+* **Text prediction** → synchronous
+* **File analysis** → asynchronous (Celery)
+
+---
+
+## 1️⃣ Predict Sentiment (Text – Sync)
 
 ```
 POST /predict
 ```
 
-**Request**
+---
 
-```json
-{
-  "text": "الخدمة ممتازة جدًا"
-}
+## 2️⃣ Analyze File (Async – Celery)
+
 ```
-
-**Response**
-
-```json
-{
-  "probabilities": {
-    "Negative": 2.3,
-    "Neutral": 5.1,
-    "Positive": 92.6
-  },
-  "final_decision": "Positive"
-}
+POST /analyze-file
 ```
 
 ---
 
-## Example Predictions
+## 3️⃣ Get Task Result
 
-| Text                     | Prediction |
-| ------------------------ | ---------- |
-| أنا مبسوطة جدًا بالمنتج  | Positive   |
-| This product is terrible | Negative   |
-| اليوم كان عادي           | Neutral    |
+```
+GET /api/task-result/{task_id}
+```
+
+---
+
+## 4️⃣ Download Result File
+
+```
+GET /api/download?path=results/sentiment_results.csv
+```
 
 ---
 
@@ -329,4 +383,3 @@ The `.gitignore` file excludes:
 * Checkpoints
 * Logs
 * Notebook checkpoints
-

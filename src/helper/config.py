@@ -1,4 +1,5 @@
 from pydantic_settings import BaseSettings
+from pydantic import field_validator
 from typing import Dict
 import json
 
@@ -49,13 +50,13 @@ class Settings(BaseSettings):
     class Config:
         env_file = ".env"
 
+    # ✅ Pydantic v2 way
+    @field_validator("ID2LABEL", mode="before")
     @classmethod
-    def model_validate(cls, values):
-        if isinstance(values.get("ID2LABEL"), str):
-            values["ID2LABEL"] = {
-                int(k): v for k, v in json.loads(values["ID2LABEL"]).items()
-            }
-        return super().model_validate(values)
+    def parse_id2label(cls, v):
+        if isinstance(v, str):
+            return {int(k): v for k, v in json.loads(v).items()}
+        return v
 
 
 settings = Settings()
